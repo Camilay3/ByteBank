@@ -46,3 +46,4 @@ elementoFormulario.addEventListener('submit', function(event) {
 });
 
 // Usar > tsc [nomeDoArquivo.ts] sempre que atualizá-lo
+// Se tiver tsconfig.json, o comando tsc -w faz isso automaticamente para todos os arquivos

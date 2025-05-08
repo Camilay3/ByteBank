@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "target": "ES2024", // Versão mais recente do Javascript
+        "outDir": "./dist/js", // Todos os arquivos compilados por tsc serão salvos aqui
+        "noEmitOnError": true // Sempre que identificar um erro, o arquivo js não deve ser gerado
+    }, 
+    "include": [ // Vai procurar todas as pastas listadas para compilar
+        "./src/**/*"
+    ]
+}
