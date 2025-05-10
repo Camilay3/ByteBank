@@ -1,3 +1,12 @@
+// Aprendizado sobre tipagem - Não importante para o projeto ByteBank
+/*
+    let saldo2 = 3000; // Daria problema se fosse só saldo1, mesmo que esteja em um arquivo diferente ao que o saldo1 foi declarado
+    let qualquer: any = ''; // Quer dizer que a variável pode receber qualquer tipo
+
+    // ARRAYS
+    const lista: number[] = [];
+    lista.push(2, 4, 6);
+*/
 const elementoFormulario = document.querySelector('.block-nova-transacao form');
 elementoFormulario.addEventListener('submit', function (event) {
     event.preventDefault(); // Bloqueia o comportamento padrão de recarregar a página ao enviar o formulário
@@ -11,10 +20,10 @@ elementoFormulario.addEventListener('submit', function (event) {
     let tipoTransacao = inputTipoTransacao.value;
     let valor = inputValor.valueAsNumber; // Necessário para não concatenar com string
     let data = new Date(inputData.value); // Necessário para não tratar data como string
-    if (tipoTransacao == 'Depósito') {
+    if (tipoTransacao == TipoTransacao.DEPOSITO) {
         saldo += valor;
     }
-    else if (tipoTransacao == 'Transferência' || tipoTransacao == 'Pagamento de Boleto') {
+    else if (tipoTransacao == TipoTransacao.TRANSFERENCIA || tipoTransacao == TipoTransacao.PAGAMENTO_BOLETO) {
         saldo -= valor;
     }
     else {
@@ -24,8 +33,8 @@ elementoFormulario.addEventListener('submit', function (event) {
     elementoSaldo.textContent = saldo.toString(); // Garante que o elemento tipo texto receba um texto
     const novaTransacao = {
         tipoTransacao: tipoTransacao,
-        valor: valor,
-        data: data
+        data: new Date(),
+        valor: 0
     };
     console.log(novaTransacao);
     elementoFormulario.reset(); //Limpar os dados do formulário
