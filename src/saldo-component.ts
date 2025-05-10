@@ -1,9 +1,18 @@
-let saldo = 3000;
+let saldo: number = 3000;
 
 const elementoSaldo = document.querySelector('.saldo-valor .valor') as HTMLElement; // Converte o valor para que o código saiba que se trata de um elemento HTML
 if (elementoSaldo != null) { // Garante que o elemento existe no código
-    elementoSaldo.textContent = saldo.toString();
+    elementoSaldo.textContent = saldo.toLocaleString('pt-br', {currency: 'BRL', style: 'currency'}); // Formatar no estilo de moeda brasileira
 }
 
-// Usar > tsc [nomeDoArquivo.ts] sempre que atualizá-lo
-// Se tiver tsconfig.json, o comando tsc -w faz isso automaticamente para todos os arquivos
+const elementoDataAcesso = document.querySelector('.block-saldo time') as HTMLElement;
+
+if (elementoDataAcesso != null) {
+    const dataAcesso: Date = new Date();
+    elementoDataAcesso.textContent = dataAcesso.toLocaleDateString('pt-br', {
+        weekday: "long",
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+    });
+}

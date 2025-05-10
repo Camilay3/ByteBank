@@ -6,6 +6,10 @@
     // ARRAYS
     const lista: number[] = [];
     lista.push(2, 4, 6);
+
+    // EXECUÇÃO
+    Usar > tsc [nomeDoArquivo.ts] sempre que atualizá-lo
+    Se tiver tsconfig.json, o comando tsc -w faz isso automaticamente para todos os arquivos
 */
 const elementoFormulario = document.querySelector('.block-nova-transacao form');
 elementoFormulario.addEventListener('submit', function (event) {
@@ -30,7 +34,8 @@ elementoFormulario.addEventListener('submit', function (event) {
         alert('Tipo de transação inválida');
         return;
     }
-    elementoSaldo.textContent = saldo.toString(); // Garante que o elemento tipo texto receba um texto
+    elementoSaldo.textContent = saldo.toLocaleString('pt-br', { currency: 'BRL', style: 'currency' });
+    ; // Garante que o elemento tipo texto receba um texto
     const novaTransacao = {
         tipoTransacao: tipoTransacao,
         data: new Date(),
