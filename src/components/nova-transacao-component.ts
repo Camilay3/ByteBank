@@ -12,6 +12,10 @@
     Se tiver tsconfig.json, o comando tsc -w faz isso automaticamente para todos os arquivos
 */
 
+import { formatarMoeda } from "../utils/formatters.js";
+import { Transacao } from "../types/Transacao.js";
+import { TipoTransacao } from "../types/TipoTransacao.js";
+
 const elementoFormulario = document.querySelector('.block-nova-transacao form') as HTMLFormElement;
 elementoFormulario.addEventListener('submit', function(event) {
     event.preventDefault(); // Bloqueia o comportamento padrão de recarregar a página ao enviar o formulário
