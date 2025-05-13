@@ -1,16 +1,5 @@
-// Aprendizado sobre tipagem - Não importante para o projeto ByteBank
-/*
-    let saldo2 = 3000; // Daria problema se fosse só saldo1, mesmo que esteja em um arquivo diferente ao que o saldo1 foi declarado
-    let qualquer: any = ''; // Quer dizer que a variável pode receber qualquer tipo
-
-    // ARRAYS
-    const lista: number[] = [];
-    lista.push(2, 4, 6);
-
-    // EXECUÇÃO
-    Usar > tsc [nomeDoArquivo.ts] sempre que atualizá-lo
-    Se tiver tsconfig.json, o comando tsc -w faz isso automaticamente para todos os arquivos
-*/
+import { TipoTransacao } from "../types/TipoTransacao.js";
+import { atualizarSaldo, getSaldo } from "./saldo-component.js";
 const elementoFormulario = document.querySelector('.block-nova-transacao form');
 elementoFormulario.addEventListener('submit', function (event) {
     event.preventDefault(); // Bloqueia o comportamento padrão de recarregar a página ao enviar o formulário
@@ -24,6 +13,7 @@ elementoFormulario.addEventListener('submit', function (event) {
     let tipoTransacao = inputTipoTransacao.value;
     let valor = inputValor.valueAsNumber; // Necessário para não concatenar com string
     let data = new Date(inputData.value); // Necessário para não tratar data como string
+    let saldo = getSaldo();
     if (tipoTransacao == TipoTransacao.DEPOSITO) {
         saldo += valor;
     }
@@ -34,7 +24,7 @@ elementoFormulario.addEventListener('submit', function (event) {
         alert('Tipo de transação inválida');
         return;
     }
-    elementoSaldo.textContent = formatarMoeda(saldo);
+    atualizarSaldo(saldo);
     const novaTransacao = {
         tipoTransacao: tipoTransacao,
         data: new Date(),
