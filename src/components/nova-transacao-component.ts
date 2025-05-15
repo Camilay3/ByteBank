@@ -15,6 +15,7 @@ import { Transacao } from "../types/Transacao.js";
 import { TipoTransacao } from "../types/TipoTransacao.js";
 import saldoComponent from "./saldo-component.js";
 import Conta from "../types/Conta.js";
+import extratoComponent from "./extrato-component.js";
 
 const elementoFormulario = document.querySelector('.block-nova-transacao form') as HTMLFormElement;
 elementoFormulario.addEventListener('submit', function (event) {
@@ -32,7 +33,7 @@ elementoFormulario.addEventListener('submit', function (event) {
 
         let tipoTransacao: TipoTransacao = inputTipoTransacao.value as TipoTransacao;
         let valor: number = inputValor.valueAsNumber; // Necessário para não concatenar com string
-        let data: Date = new Date(inputData.value); // Necessário para não tratar data como string
+        let data: Date = new Date(inputData.value + " 00:00:00"); // Necessário para não tratar data como string
 
         const novaTransacao: Transacao = {
             tipoTransacao: tipoTransacao,
@@ -42,6 +43,7 @@ elementoFormulario.addEventListener('submit', function (event) {
 
         Conta.registrarTransacao(novaTransacao);
         saldoComponent.atualizar();
+        extratoComponent.atualizar();
         elementoFormulario.reset(); //Limpar os dados do formulário
     } catch (erro) {
         alert(erro.message)
