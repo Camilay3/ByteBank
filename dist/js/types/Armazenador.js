@@ -5,6 +5,7 @@ export class Armazenador {
         localStorage.setItem(chave, valorComoString);
     }
     static obter(chave, reviver) {
+        // <T> garante que o tipo de entrada seja o mesmo de saída ou null: Tipo genérico
         const valor = localStorage.getItem(chave);
         if (valor === null) {
             return null;
