@@ -1,4 +1,5 @@
 import { Armazenador } from "./Armazenador.js";
+import { ValidaDebito } from "./Decorators.js";
 import { GrupoTransacao } from "./GrupoTransacao.js";
 import { TipoTransacao } from "./TipoTransacao.js";
 import { Transacao } from "./Transacao.js";
@@ -67,14 +68,8 @@ export class Conta {
         Armazenador.salvar("transacoes", JSON.stringify(this.transacoes));
     }
 
+    @ValidaDebito
     debitar(valor: number): void {
-        if (valor <= 0) {
-            throw new Error("O valor a ser debitado deve ser maior que zero!");
-        }
-        if (valor > this.saldo) {
-            throw new Error("Saldo insuficiente!");
-        }
-
         this.saldo -= valor;
         Armazenador.salvar("saldo", this.saldo.toString());
     }
@@ -89,6 +84,16 @@ export class Conta {
     }
 }
 
-const conta = new Conta('Camila');
 
+export class ContaPremium extends Conta { // Herança
+    registrarTransacao(transacao: Transacao): void { // Ganham bônus de 50 centavos
+        if (transacao.tipoTransacao === TipoTransacao.DEPOSITO) {
+            transacao.valor += 0.5;
+        }
+        super.registrarTransacao(transacao); // Chamar algo que está dentro da classe-mãe
+    }
+}
+
+const conta = new Conta('Camila');
+const contaPremium = new ContaPremium("Joana");
 export default conta;
